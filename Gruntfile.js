@@ -49,11 +49,14 @@ module.exports = function (grunt) {
                 specs: 'src/js/**/*.test.js',
                 vendor: [
                     'src/lib/jquery.js',
-                    'src/lib/can.custom.js'
+                    'src/lib/can.custom.js',
+                    'src/lib/jasmine-jquery.js',
+                    'src/JasmineConfigure.js'
                 ],
                 junit: {
                     path: 'output/testresults'
-                }
+                },
+                keepRunner: true
             }
         }
     };

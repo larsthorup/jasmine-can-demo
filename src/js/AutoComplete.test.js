@@ -2,11 +2,16 @@ describe('AutoComplete', function () {
     var autoComplete;
 
     beforeEach(function () {
-        // ToDo:
-        // jasmine.configure();
-        autoComplete = new AutoComplete(null, {
+        jasmine.configure();
+
+        $('<input id="name" />').appendTo('#sandbox');
+        autoComplete = new AutoComplete('#name', {
             list: ['lars', 'matt', 'mike', 'nick', 'kin']
         });
+    });
+
+    it('should add class auto-complete', function () {
+        expect($('#name')).toHaveClass('auto-complete');
     });
 
     describe('match', function () {

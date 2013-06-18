@@ -4,7 +4,7 @@
     },
     {
         init: function () {
-
+            this.element.addClass('auto-complete');
         },
 
         match: function (pattern) {
