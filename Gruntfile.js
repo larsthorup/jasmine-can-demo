@@ -47,6 +47,10 @@ module.exports = function (grunt) {
             ],
             options: {
                 specs: 'src/js/**/*.test.js',
+                vendor: [
+                    'src/lib/jquery.js',
+                    'src/lib/can.custom.js'
+                ],
                 junit: {
                     path: 'output/testresults'
                 }
@@ -57,10 +61,8 @@ module.exports = function (grunt) {
 
 
     // coverage
-    gruntConfig.jasmine.istanbul = {
-        src: gruntConfig.jasmine.src.src,
+    gruntConfig.jasmine.istanbul = grunt.util._.merge({}, gruntConfig.jasmine.src, {
         options: {
-            specs: gruntConfig.jasmine.src.options.specs,
             template: require('grunt-template-jasmine-istanbul'),
             templateOptions: {
                 coverage: 'output/coverage/coverage.json',
@@ -71,7 +73,7 @@ module.exports = function (grunt) {
                 ]
             }
         }
-    };
+    });
     grunt.registerTask('cover', 'jasmine:istanbul');
 
     // grunt

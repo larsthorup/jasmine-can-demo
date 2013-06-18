@@ -1,7 +1,26 @@
 describe('AutoComplete', function () {
+    var autoComplete;
 
-    it('should work', function () {
-        expect(2 + 2).toBe(4);
+    beforeEach(function () {
+        // ToDo:
+        // jasmine.configure();
+        autoComplete = new AutoComplete(null, {
+            list: ['lars', 'matt', 'mike', 'nick', 'kin']
+        });
+    });
+
+    describe('match', function () {
+        var match;
+
+        describe('when called with an empty string', function () {
+            beforeEach(function () {
+                match = autoComplete.match('');
+            });
+            it('should return null', function () {
+                expect(match).toBeNull();
+            });
+        });
+
     });
 
 });
