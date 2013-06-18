@@ -21,6 +21,15 @@
             }
         },
 
+        'keypress': function (element, event) {
+            var pattern = this.element.val() + String.fromCharCode(event.charCode);
+            var match = this.match(pattern);
+            if(match) {
+                event.preventDefault();
+                this.element.val(match);
+            }
+        },
+
         match: function (pattern) {
             var matches = [];
             can.each(this.options.list, function (key) {
