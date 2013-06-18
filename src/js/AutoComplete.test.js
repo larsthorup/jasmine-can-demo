@@ -95,35 +95,29 @@ describe('AutoComplete', function () {
 
     describe('when constructed with an ajax url', function () {
 
-        describe('when the ajax request succeeds', function () {
-            beforeEach(function () {
-                can.fixture('/getNames', function (original, respondWith) {
-                    respondWith({list: ['rachel', 'lakshmi']});
+        can.each([
+
+            {response: {list: ['rachel', 'lakshmi']}, expected: ['rachel', 'lakshmi']},
+            {response: 500, expected: []}
+
+        ], function (scenario) {
+
+            describe('when the ajax response is ' + JSON.stringify(scenario.response), function () {
+                beforeEach(function () {
+                    can.fixture('/getNames', function (original, respondWith) {
+                        respondWith(scenario.response);
+                    });
+                    autoComplete = new AutoComplete('#name', {
+                        listUrl: '/getNames'
+                    });
+                    jasmine.Clock.tick(can.fixture.delay);
                 });
-                autoComplete = new AutoComplete('#name', {
-                    listUrl: '/getNames'
+
+                it('should use ' + JSON.stringify(scenario.expected) + ' as the list of names', function () {
+                    expect(autoComplete.options.list).toEqual(scenario.expected);
                 });
-                jasmine.Clock.tick(can.fixture.delay);
             });
 
-            it('should use the returned list of names', function () {
-                expect(autoComplete.options.list).toEqual(['rachel', 'lakshmi']);
-            });
-        });
-
-        describe('when the ajax request fails', function () {
-            beforeEach(function () {
-                can.fixture('/getNames', function (original, respondWith) {
-                    respondWith(500);
-                });
-                autoComplete = new AutoComplete('#name', {
-                    listUrl: '/getNames'
-                });
-                jasmine.Clock.tick(can.fixture.delay);
-            });
-            it('should use an empty list', function () {
-                expect(autoComplete.options.list).toEqual([]);
-            });
         });
 
     });
