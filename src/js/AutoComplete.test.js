@@ -21,6 +21,24 @@ describe('AutoComplete', function () {
             });
         });
 
+        describe('when called with a non-unique prefix', function () {
+            beforeEach(function () {
+                match = autoComplete.match('m');
+            });
+            it('should return null', function () {
+                expect(match).toBeNull();
+            });
+        });
+
+        describe('when called with a unique prefix', function () {
+            beforeEach(function () {
+                match = autoComplete.match('mi');
+            });
+            it('should return the match', function () {
+                expect(match).toBe('mike');
+            });
+        });
+
     });
 
 });
