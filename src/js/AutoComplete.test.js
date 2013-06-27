@@ -60,7 +60,7 @@ describe('AutoComplete', function () {
             });
 
             it('should invoke the match function', function () {
-                expect(autoComplete.match).toHaveBeenCalled();
+                expect(autoComplete.match).toHaveBeenCalledWith('m');
             });
 
             it('should cancel the key event', function () {
